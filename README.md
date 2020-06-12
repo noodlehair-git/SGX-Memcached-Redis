@@ -5,8 +5,40 @@ One way of providing data confidentiality and privacy is by leveraging Intel Sof
 
 # Tools and setup
 
+1. Set up the [linux-sgx-driver](https://github.com/intel/linux-sgx-driver) and [linux-sdk](https://github.com/intel/linux-sgx).
+
+2. Install [Graphene-SGX](https://github.com/oscarlab/graphene).
+
+3. Install [memtier_benchmark](https://github.com/RedisLabs/memtier_benchmark).
 
 # Experimentation
+
+The experimentation has been done on Intel NUC (NUC10i7FNH) on HW mode which runs Ubuntu 18.04 OS. To perform the experimentation follow the steps below. 
+
+To run in SGX HW mode
+
+```cd graphene/Examples/redis```
+
+```make SGX=1```
+
+```SGX=1 ./pal_loader redis-server --save '' --protected-mode no & memtier_benchmark -c 70 --hide-histogram```
+
+
+
+To run in SGX SIM mode
+
+```./pal_loader redis-server --save '' --protected-mode no & memtier_benchmark -c 70 --hide-histogram```
+
+
+
+To simply run Redis
+
+```make clean```
+
+```./redis-server --save '' --protected-mode no & memtier_benchmark -c 70 --hide-histogram```
+
+Learn more about memtier_benchmark usage from [here](https://redislabs.com/blog/memtier_benchmark-a-high-throughput-benchmarking-tool-for-redis-memcached/).
+
 
 # Result
 
